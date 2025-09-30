@@ -1,0 +1,25 @@
+Local install (Linux)
+# on systems with package or from repo - often installed via package manager or download from hashcat.net
+sudo apt install -y hashcat
+
+Basic wordlist attack (Hashcat)
+# example for MD5 (hash mode 0). Adjust -m for hash type.
+hashcat -m 0 -a 0 sample_hashes/hashes.txt /usr/share/wordlists/rockyou.txt --potfile-path results/hashcat.pot --outfile-format=2 -o results/hashcat_cracked.txt
+# show results (hashcat --show)
+hashcat --show -m 0 sample_hashes/hashes.txt --potfile-path results/hashcat.pot > results/hashcat_cracked.txt
+
+Docker (if no GPU)
+docker run --rm -it -v $(pwd)/sample_hashes:/data -v $(pwd)/results:/results hashcat/hashcat:latest \
+hashcat -m 0 -a 0 /data/hashes.txt /usr/share/wordlists/rockyou.txt --potfile-path /results/hashcat.pot -o /results/hashcat_cracked.txt
+
+4) Wordlists & rules
+
+Use curated wordlists (rockyou.txt, custom lists). Small labs: you can create short lists: echo -e "password\n123456\nletmein" > sample_hashes/mylist.txt.
+
+Use rules to mutate wordlists (--rules on John, -r rules/best64.rule on Hashcat).
+
+5) Results & sanitization
+
+Save only cracked username:password pairs or hashed:plaintext in results/. Do NOT commit raw hash dumps containing PII.
+
+Include sample command output snippets and the final results/*.txt in the lab report.
