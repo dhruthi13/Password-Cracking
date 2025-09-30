@@ -1,0 +1,18 @@
+# Lab Instructions — Password Cracking (John the Ripper & Hashcat)
+
+## 1) Prepare hash file (lab-only)
+- Create a small file `sample_hashes/hashes.txt` containing the target hashes. Example (MD5 plaintext->hash example for lab):
+  - Hash lines *only* (one per line), no usernames unless format requires.
+
+## 2) John the Ripper (local)
+### Install (Kali / Debian)
+```bash
+sudo apt update
+sudo apt install -y john
+
+# decompress rockyou if present
+sudo gunzip /usr/share/wordlists/rockyou.txt.gz || true
+# run john with rockyou and rules
+john --wordlist=/usr/share/wordlists/rockyou.txt --rules --format=raw-md5 sample_hashes/hashes.txt --pot=results/john.pot
+# show cracked
+john --show --pot=results/john.pot sample_hashes/hashes.txt > results/john_cracked.txt
