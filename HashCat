@@ -23,3 +23,9 @@ Use rules to mutate wordlists (--rules on John, -r rules/best64.rule on Hashcat)
 Save only cracked username:password pairs or hashed:plaintext in results/. Do NOT commit raw hash dumps containing PII.
 
 Include sample command output snippets and the final results/*.txt in the lab report.
+
+
+
+
+chmod +x TASK3-Password-Cracking/john_run.sh
+
